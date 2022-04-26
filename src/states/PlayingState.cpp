@@ -5,9 +5,13 @@ void PlayingState::init() {
 	field->setPosition(100, 200);
 	_visibleObjectManager.add("field", field);
 
-	Paddle* player1 = new Paddle(field->getTop() + 10, field->getBottom() - 10);
+	Paddle* player1 = new Paddle(field->getTop() + 10, field->getBottom() - 10, false);
 	player1->setPosition(150, 718);
 	_visibleObjectManager.add("player1", player1);
+
+	Paddle* ai = new Paddle(field->getTop() + 10, field->getBottom() - 10, true);
+	ai->setPosition(1800, 718);
+	_visibleObjectManager.add("ai", ai);
 
 	Ball* ball = new Ball(
 		sf::Rect<float>(field->getLeft() + 10, field->getTop() + 10, field->getBoundingRect().width - 20, field->getBoundingRect().height - 20)

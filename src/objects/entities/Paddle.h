@@ -3,12 +3,16 @@
 #define PONG_PADDLE_H
 
 #include "../../VisibleObject.h"
+#include "./Ball.h"
+#include "../../Pong.h"
 
 class Paddle : public VisibleObject {
 public:
-	Paddle(float constraintTop, float constraintBottom);
+	Paddle(float constraintTop, float constraintBottom, bool isAI);
 	void handleInput(sf::Event* event);
 	void update(float timeElapsed);
+	void runAI(); //to seperate AI logic
+	const bool _isAI;
 
 private:
 	enum Direction { DIRECTION_NONE, DIRECTION_UP, DIRECTION_DOWN };

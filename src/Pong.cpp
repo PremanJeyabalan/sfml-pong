@@ -1,5 +1,7 @@
 #include "Pong.h"
 
+GameState* Pong::_currentState;
+
 sf::RenderWindow Pong::_window;
 sf::Clock Pong::_clock;
 Pong::State Pong::_state = Uninitialized;
@@ -45,7 +47,7 @@ void Pong::gameLoop() {
 		_window.clear(sf::Color(255, 255, 255));
 
 		//To prevent changing state during a frame
-		GameState* currentState = _stateInstances[_state];
+		_currentState = _stateInstances[_state];
 
 
 		//Handle input
@@ -57,17 +59,19 @@ void Pong::gameLoop() {
 
 
 			
-			currentState->handleInput(&event);
+			_currentState->handleInput(&event);
 		}
 
 		//Update our entities
-		currentState->update(timeElapsed);
+		_currentState->update(timeElapsed);
 
 		//Draw our new entities
-		currentState->draw(&_window);
+		_currentState->draw(&_window);
 		_window.display();
-		currentState->endLoopLogic();
+		_currentState->endLoopLogic();
 	}
 }
 
 void Pong::setState(Pong::State s) { _state = s; }
+
+GameState* Pong::getState() { return _currentState; }

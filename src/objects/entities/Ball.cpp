@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include <iostream>
 
 Ball::Ball(sf::Rect<float>&& constraints) : VisibleObject("assets/ball.png"), _speed(500.0f), _angle(rand() % 2 == 0 ? 0 : 180), _constraints(constraints), isOut(false) {}
 
@@ -19,13 +20,8 @@ void Ball::update(float timeElpased) {
 
 	//Temporarily handle bounce with the side walls
 	if (getLeft() + velocityX <= _constraints.left || getRight() + velocityX >= _constraints.left + _constraints.width) {
-		_angle = (180 - _angle) % 360;
-		velocityX *= -1;
-	}
-
-	//Handle loss condition on the player's side
-	if (getLeft() + velocityX <= _constraints.left)
 		isOut = true;
+	}
 
 	move(velocityX, velocityY);
 }
@@ -43,6 +39,13 @@ void Ball::collideWith(VisibleObject* target) {
 	float normalizedDiff = distDiff / maxDiff;
 
 	_angle = (int)(normalizedDiff * 80);
+
+	if (target->getPosition().x < Pong::SCREEN_WIDTH / 2) {
+		_angle = (int)(normalizedDiff * 90);
+	}
+	else {
+		_angle = 180 - (int)(normalizedDiff * 90);
+	}
 
 	_speed += 100;
 

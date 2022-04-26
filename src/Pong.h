@@ -12,6 +12,8 @@ class Pong {
 public:
 	const static int SCREEN_WIDTH = 2048;
 	const static int SCREEN_HEIGHT = 1536;
+	static GameState* getState();
+	static GameState* _currentState;
 	static void start();
 	static void gameLoop();
 	enum State { Uninitialized, Splashscreen, Menu, Playing, Exiting};

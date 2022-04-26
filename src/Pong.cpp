@@ -66,6 +66,7 @@ void Pong::gameLoop() {
 		//Draw our new entities
 		currentState->draw(&_window);
 		_window.display();
+		currentState->endLoopLogic();
 	}
 }
 

@@ -15,6 +15,15 @@ public:
 	void update(float timeElapsed) override;
 	void draw(sf::RenderWindow* window) override;
 	void endLoopLogic() override;
+	void reset();
+
+private:
+	int _scorePlayer1 = 0;
+	int _scorePlayer2 = 0;
+	bool _isDone;
+	sf::Font _scoreFont;
+	sf::Text _scoreText;
+	sf::Text _endGameText;
 };
 
 #endif

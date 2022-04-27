@@ -1,10 +1,13 @@
 #include "Ball.h"
 #include <iostream>
 
-Ball::Ball(sf::Rect<float>&& constraints) : VisibleObject("assets/ball.png"), _speed(500.0f), _angle(rand() % 2 == 0 ? 0 : 180), _constraints(constraints), isOut(false) {}
+Ball::Ball(sf::Rect<float>&& constraints) : VisibleObject("assets/ball.png"), _speed(500.0f), _angle(rand() % 2 == 0 ? 0 : 180), _constraints(constraints), isOut(false), _timeElapsed(0) {}
 
 void Ball::update(float timeElpased) {
 	if (isOut) return;
+
+	_timeElapsed += timeElpased;
+	if (_timeElapsed < 1) return;
 
 	float velocity = _speed * timeElpased;
 	float angleInRadian = _angle * M_PI / 180.0f;

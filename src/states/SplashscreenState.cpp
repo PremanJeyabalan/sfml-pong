@@ -7,6 +7,11 @@ void SplashscreenState::init() {
 		return;
 	}
 	_sprite.setTexture(_texture);
+
+	_sprite.setScale(
+		sf::VideoMode::getDesktopMode().width / _sprite.getLocalBounds().width,
+		sf::VideoMode::getDesktopMode().height / _sprite.getLocalBounds().height
+	);
 }
 
 void SplashscreenState::handleInput(sf::Event* event) {

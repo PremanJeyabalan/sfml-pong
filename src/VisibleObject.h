@@ -4,10 +4,11 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+//#include "Pong.h"
 
 class VisibleObject {
 public:
-	VisibleObject(std::string&& textureFilename);
+	VisibleObject(std::string&& textureFilename, bool scale=false);
 	virtual ~VisibleObject();
 	virtual void handleInput(sf::Event* event) {};
 	virtual void update(float timeElapsed)=0;

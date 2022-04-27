@@ -2,7 +2,7 @@
 
 void PlayingState::init() {
 	Field* field = new Field();
-	field->setPosition(100, 200);
+	field->setPosition(50, 25);
 	_visibleObjectManager.add("field", field);
 
 	Paddle* player1 = new Paddle(field->getTop() + 10, field->getBottom() - 10, false);
@@ -35,16 +35,16 @@ void PlayingState::init() {
 }
 
 void PlayingState::reset() {
+	Field* field = dynamic_cast<Field*>(_visibleObjectManager.get("field"));
 	//Objects positions
 	Paddle* player1 = dynamic_cast<Paddle*>(_visibleObjectManager.get("player1"));
-	player1->setPosition(150, 718);
+	player1->setPosition(field->getLeft() + 20, Pong::SCREEN_HEIGHT / 2);
 
 	Paddle* ai = dynamic_cast<Paddle*>(_visibleObjectManager.get("ai"));
-	ai->setPosition(1878, 718);
+	ai->setPosition(field->getRight() - 40, Pong::SCREEN_HEIGHT / 2);
 
 	//Reset ball
 	_visibleObjectManager.remove("ball");
-	Field* field = dynamic_cast<Field*>(_visibleObjectManager.get("field"));
 
 	Ball* ball = new Ball(
 		sf::Rect<float>(field->getLeft() + 10, field->getTop() + 10, field->getBoundingRect().width - 20, field->getBoundingRect().height - 20)

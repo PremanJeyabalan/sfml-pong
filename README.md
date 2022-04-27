@@ -2,7 +2,7 @@
 
 ### Pong Clone Ideas and Possible Roadmap
 - [x] Single Player vs AI mode
-- [ ] Fix screen dimensions and where to place on screen dynamic
+- [x] Fix screen dimensions and where to place on screen dynamic
 - [ ] Multiplayer same machine mode
 - [ ] Power ups like gravity, reverse, frozen, wall
 - [ ] Multiplayer across network

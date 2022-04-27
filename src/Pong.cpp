@@ -6,13 +6,17 @@ sf::RenderWindow Pong::_window;
 sf::Clock Pong::_clock;
 Pong::State Pong::_state = Uninitialized;
 std::map<Pong::State, GameState*> Pong::_stateInstances;
+const sf::VideoMode Pong::desktop = sf::VideoMode::getDesktopMode();
+const int Pong::SCREEN_HEIGHT = desktop.height;
+const int Pong::SCREEN_WIDTH = desktop.width;
 
 void Pong::start() {
 	//if the window is already open, don't do anything
 	if (_state != Uninitialized) return;
 
-	_window.create(sf::VideoMode(Pong::SCREEN_WIDTH, Pong::SCREEN_HEIGHT, 32), "Pong");
-	_window.setFramerateLimit(60);
+	_window.create(sf::VideoMode(Pong::SCREEN_WIDTH, Pong::SCREEN_HEIGHT, desktop.bitsPerPixel), "Pong", sf::Style::Fullscreen);
+
+	_window.setFramerateLimit(400);
 
 	_stateInstances[Splashscreen] = new SplashscreenState();
 	_stateInstances[Splashscreen]->init();

@@ -10,8 +10,8 @@ void MenuState::init() {
 	_playSprite.setTexture(_playTexture);
 	_exitSprite.setTexture(_exitTexture);
 
-	_playSprite.setPosition(422, 490);
-	_exitSprite.setPosition(422, 868);
+	_playSprite.setPosition(Pong::SCREEN_WIDTH / 2 - _playSprite.getGlobalBounds().width / 2, Pong::SCREEN_HEIGHT / 3);
+	_exitSprite.setPosition(Pong::SCREEN_WIDTH / 2 - _exitSprite.getGlobalBounds().width / 2, 2*Pong::SCREEN_HEIGHT / 3);
 }
 
 void MenuState::handleInput(sf::Event* event) {

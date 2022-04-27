@@ -1,6 +1,6 @@
 #include "VisibleObject.h"
 
-VisibleObject::VisibleObject(std::string&& textureFileName) {
+VisibleObject::VisibleObject(std::string&& textureFileName, bool scale) {
 
 	if (!_texture.loadFromFile(textureFileName)) {
 		std::cout << "Error loading assets from file" << std::endl;
@@ -9,6 +9,13 @@ VisibleObject::VisibleObject(std::string&& textureFileName) {
 	}
 
 	_sprite.setTexture(_texture);
+	
+	if (scale)
+		_sprite.setScale(
+			sf::VideoMode::getDesktopMode().width / (_sprite.getLocalBounds().width + 100),
+			sf::VideoMode::getDesktopMode().height / (_sprite.getLocalBounds().height + 50)
+		);
+
 	_isLoaded = true;
 
 }

@@ -10,8 +10,9 @@
 
 class Pong {
 public:
-	const static int SCREEN_WIDTH = 2048;
-	const static int SCREEN_HEIGHT = 1536;
+	const static sf::VideoMode desktop;
+	const static int SCREEN_WIDTH;
+	const static int SCREEN_HEIGHT;
 	static GameState* getState();
 	static GameState* _currentState;
 	static void start();

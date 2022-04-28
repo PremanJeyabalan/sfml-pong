@@ -16,7 +16,7 @@ void Pong::start() {
 
 	_window.create(sf::VideoMode(Pong::SCREEN_WIDTH, Pong::SCREEN_HEIGHT, desktop.bitsPerPixel), "Pong", sf::Style::Fullscreen);
 
-	_window.setFramerateLimit(400);
+	_window.setFramerateLimit(1000);
 
 	_stateInstances[Splashscreen] = new SplashscreenState();
 	_stateInstances[Splashscreen]->init();

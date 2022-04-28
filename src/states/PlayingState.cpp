@@ -5,11 +5,11 @@ void PlayingState::init() {
 	field->setPosition(50, 25);
 	_visibleObjectManager.add("field", field);
 
-	Paddle* player1 = new Paddle(field->getTop() + 10, field->getBottom() - 10, false);
+	Paddle* player1 = new Paddle(field->getTop() + 10, field->getBottom() - 10, false, true);
 	_visibleObjectManager.add("player1", player1);
 
-	Paddle* ai = new Paddle(field->getTop() + 10, field->getBottom() - 10, true);
-	_visibleObjectManager.add("ai", ai);
+	Paddle* player2 = new Paddle(field->getTop() + 10, field->getBottom() - 10, false, false);
+	_visibleObjectManager.add("player2", player2);
 
 	//Score
 	if (!_scoreFont.loadFromFile("assets/fonts/Roboto-Bold.ttf")) {
@@ -40,8 +40,8 @@ void PlayingState::reset() {
 	Paddle* player1 = dynamic_cast<Paddle*>(_visibleObjectManager.get("player1"));
 	player1->setPosition(field->getLeft() + 20, Pong::SCREEN_HEIGHT / 2);
 
-	Paddle* ai = dynamic_cast<Paddle*>(_visibleObjectManager.get("ai"));
-	ai->setPosition(field->getRight() - 40, Pong::SCREEN_HEIGHT / 2);
+	Paddle* player2 = dynamic_cast<Paddle*>(_visibleObjectManager.get("player2"));
+	player2->setPosition(field->getRight() - 40, Pong::SCREEN_HEIGHT / 2);
 
 	//Reset ball
 	_visibleObjectManager.remove("ball");

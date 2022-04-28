@@ -4,6 +4,7 @@
 
 #include "VisibleObject.h"
 #include "SFML/Graphics.hpp"
+#include <unordered_map>
 
 class VisibleObjectManager {
 public:
@@ -14,10 +15,11 @@ public:
 
 	void handleInputAll(sf::Event* event);
 	void updateAll(float timeElapsed);
+	void updateAllDP(float timeElapsed);
 	void drawAll(sf::RenderWindow* window);
 
 private:
-	std::map<std::string, VisibleObject*> _objects;
+	std::unordered_map<std::string, VisibleObject*> _objects;
 };
 #endif // !PONG_VISIBLE_OBJECT_MANAGER_H
 

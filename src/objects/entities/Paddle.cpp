@@ -1,17 +1,24 @@
 #include "Paddle.h"
 
-Paddle::Paddle(float constraintTop, float constraintBottom, bool isAI) : VisibleObject("assets/paddle.png"), _constraintBottom(constraintBottom), _constraintTop(constraintTop), _isAI(isAI) {
+Paddle::Paddle(float constraintTop, float constraintBottom, bool isAI, bool isLeft) : VisibleObject("assets/paddle.png"), _constraintBottom(constraintBottom), _constraintTop(constraintTop), _isAI(isAI) {
 	//To prevent recalculation of fieldBound on each turn as it never changes
+	if (isLeft) { 
+		UP_KEY = sf::Keyboard::W;
+		DOWN_KEY = sf::Keyboard::S;
+	}
+	else {
+		UP_KEY = sf::Keyboard::Up;
+		DOWN_KEY = sf::Keyboard::Down;
+	}
 }
 
 void Paddle::handleInput(sf::Event* event) {
 	if (_isAI) return;
 
-
 	if (event->type == sf::Event::KeyPressed) {
-		if (event->key.code == sf::Keyboard::Up)
+		if (event->key.code == UP_KEY)
 			_direction = DIRECTION_UP;
-		else if (event->key.code == sf::Keyboard::Down)
+		else if (event->key.code == DOWN_KEY)
 			_direction = DIRECTION_DOWN;
 	}
 	else if (event->type == sf::Event::KeyReleased)

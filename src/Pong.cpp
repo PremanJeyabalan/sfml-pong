@@ -24,8 +24,11 @@ void Pong::start() {
 	_stateInstances[Menu] = new MenuState();
 	_stateInstances[Menu]->init();
 
-	_stateInstances[Playing] = new PlayingState();
-	_stateInstances[Playing]->init();
+	_stateInstances[Singleplayer] = new PlayingState(GameState::Singleplayer);
+	_stateInstances[Singleplayer]->init();
+
+	_stateInstances[Multiplayer] = new PlayingState(GameState::Multiplayer);
+	_stateInstances[Multiplayer]->init();
 
 	_state = Splashscreen;
 
@@ -48,7 +51,7 @@ void Pong::gameLoop() {
 		float timeElapsed = _clock.restart().asSeconds();
 
 		//Reset out window content
-		_window.clear(sf::Color(255, 255, 255));
+		_window.clear(sf::Color(0, 0, 0));
 
 		//To prevent changing state during a frame
 		_currentState = _stateInstances[_state];

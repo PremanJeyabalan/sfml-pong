@@ -1,29 +1,57 @@
 #include "MenuState.h"
 
+void MenuState::menuItemInit(int index) {
+	_menuTextItems[index].setFont(_menuFont);
+	std::cout << index << std::endl;
+	_menuTextItems[index].setFillColor(index == 0 ? sf::Color::Yellow : sf::Color::White);
+	_menuTextItems[index].setString(_menuDisplayStrings[index]);
+	_menuTextItems[index].setPosition(sf::Vector2<float>(Pong::SCREEN_WIDTH / 2, Pong::SCREEN_HEIGHT / (MAX_MENU_ITEMS + 1) * (index + 1)) );
+}
+
+void MenuState::setMenuItemActive(int index) {
+	for (int i = 0; i < MAX_MENU_ITEMS; i++) {
+		i == index ? _menuTextItems[i].setFillColor(sf::Color::Yellow) : _menuTextItems[i].setFillColor(sf::Color::White);
+	}
+}
+
 void MenuState::init() {
-	if (!_playTexture.loadFromFile("assets/play-btn.png")
-		|| !_exitTexture.loadFromFile("assets/exit-btn.png")) {
-		std::cout << "Error while loading assets" << std::endl;
-		return;
+
+	if (!_menuFont.loadFromFile("assets/fonts/Roboto-Bold.ttf")) {
+		std::cout << "Error loading font" << std::endl;
 	}
 
-	_playSprite.setTexture(_playTexture);
-	_exitSprite.setTexture(_exitTexture);
+	for (int i = 0; i < MAX_MENU_ITEMS; i++) {
+		menuItemInit(i);
+	}
 
-	_playSprite.setPosition(Pong::SCREEN_WIDTH / 2 - _playSprite.getGlobalBounds().width / 2, Pong::SCREEN_HEIGHT / 3);
-	_exitSprite.setPosition(Pong::SCREEN_WIDTH / 2 - _exitSprite.getGlobalBounds().width / 2, 2*Pong::SCREEN_HEIGHT / 3);
+	_currentMenuIndex = 0;
+
+
 }
 
 void MenuState::handleInput(sf::Event* event) {
-	if (event->type == sf::Event::MouseButtonPressed) {
-		int x = event->mouseButton.x;
-		int y = event->mouseButton.y;
+	if (event->type == sf::Event::KeyPressed) {
 
-		if (_playSprite.getGlobalBounds().contains(x, y)) {
-			Pong::setState(Pong::Playing);
+		if (event->key.code == sf::Keyboard::Up) {
+			if (_currentMenuIndex == 0) return;
+
+			setMenuItemActive(--_currentMenuIndex);
+
 		}
-		else if (_exitSprite.getGlobalBounds().contains(x, y)) {
-			Pong::setState(Pong::Exiting);
+		else if (event->key.code == sf::Keyboard::Down) {
+			if (_currentMenuIndex == MAX_MENU_ITEMS - 1) return;
+
+			setMenuItemActive(++_currentMenuIndex);
+
+		}
+		else if (event->key.code == sf::Keyboard::Enter) {
+			if (_currentMenuIndex == MenuState::Exit)
+				Pong::setState(Pong::Exiting);
+			else if (_currentMenuIndex == MenuStates::Singleplayer)
+				Pong::setState(Pong::Singleplayer);
+			else if (_currentMenuIndex == MenuStates::Multiplayer)
+				Pong::setState(Pong::Multiplayer);
+
 		}
 	}
 }
@@ -33,6 +61,6 @@ void MenuState::update(float timeElapsed) {
 }
 
 void MenuState::draw(sf::RenderWindow* window) {
-	window->draw(_playSprite);
-	window->draw(_exitSprite);
+	for (int i = 0; i < MAX_MENU_ITEMS; i++)
+		window->draw(_menuTextItems[i]);
 }

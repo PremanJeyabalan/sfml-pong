@@ -20,6 +20,8 @@ public:
 
 private:
 	std::unordered_map<std::string, VisibleObject*> _objects;
+	//static float total_seconds;
+	//static int total_count;
 };
 #endif // !PONG_VISIBLE_OBJECT_MANAGER_H
 

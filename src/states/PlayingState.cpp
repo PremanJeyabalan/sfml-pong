@@ -1,16 +1,35 @@
 #include "PlayingState.h"
 
+PlayingState::PlayingState(PlayingType gameType) : _gameType(gameType) {};
+
 void PlayingState::init() {
-	Field* field = new Field();
-	field->setPosition(50, 25);
-	_visibleObjectManager.add("field", field);
+	if (_gameType == PlayingType::Singleplayer) {
+		Field* field = new Field();
+		field->setPosition(50, 25);
+		_visibleObjectManager.add("field", field);
 
-	Paddle* player1 = new Paddle(field->getTop() + 10, field->getBottom() - 10, false, true);
-	_visibleObjectManager.add("player1", player1);
+		Paddle* player1 = new Paddle(field->getTop() + 10, field->getBottom() - 10, false, true);
+		_visibleObjectManager.add("player1", player1);
 
-	Paddle* player2 = new Paddle(field->getTop() + 10, field->getBottom() - 10, false, false);
-	_visibleObjectManager.add("player2", player2);
+		Paddle* ai = new Paddle(field->getTop() + 10, field->getBottom() - 10, true, false);
+		_visibleObjectManager.add("player2", ai);
+	} else if (_gameType == PlayingType::Multiplayer) {
+		Field* field = new Field();
+		field->setPosition(50, 25);
+		_visibleObjectManager.add("field", field);
 
+		Paddle* player1 = new Paddle(field->getTop() + 10, field->getBottom() - 10, false, true);
+		_visibleObjectManager.add("player1", player1);
+
+		Paddle* player2 = new Paddle(field->getTop() + 10, field->getBottom() - 10, false, false);
+		_visibleObjectManager.add("player2", player2);
+	}
+	
+
+	gameInit();
+}
+
+void PlayingState::gameInit() {
 	//Score
 	if (!_scoreFont.loadFromFile("assets/fonts/Roboto-Bold.ttf")) {
 		std::cout << "error while loading Roboto font" << std::endl;
@@ -19,7 +38,7 @@ void PlayingState::init() {
 	_scoreText.setFont(_scoreFont);
 	_scoreText.setCharacterSize(100);
 	_scoreText.setStyle(sf::Text::Bold);
-	_scoreText.setFillColor(sf::Color::Black);
+	_scoreText.setFillColor(sf::Color::White);
 	_scoreText.setString("0 - 0");
 
 	auto bound = _scoreText.getGlobalBounds();
@@ -29,7 +48,7 @@ void PlayingState::init() {
 	_endGameText.setFont(_scoreFont);
 	_endGameText.setCharacterSize(150);
 	_endGameText.setStyle(sf::Text::Bold);
-	_endGameText.setFillColor(sf::Color::Black);
+	_endGameText.setFillColor(sf::Color::White);
 
 	reset();
 }

@@ -3,8 +3,8 @@
 #define PONG_PONG_H
 
 #include <SFML/Graphics.hpp>
-#include "states/GameState.h"
 #include "states/MenuState.h"
+#include "states/GameState.h"
 #include "states/PlayingState.h"
 #include "states/SplashscreenState.h"
 
@@ -17,7 +17,7 @@ public:
 	static GameState* _currentState;
 	static void start();
 	static void gameLoop();
-	enum State { Uninitialized, Splashscreen, Menu, Playing, Exiting};
+	enum State { Uninitialized, Splashscreen, Menu, Singleplayer, Multiplayer, Exiting};
 	static void setState(State s);
 
 private:

@@ -13,6 +13,7 @@ public:
 	virtual void draw(sf::RenderWindow* window) = 0;
 	virtual void endLoopLogic() {};
 	VisibleObjectManager* getObjectManager();
+	enum PlayingType { Singleplayer, Multiplayer };
 
 protected:
 	VisibleObjectManager _visibleObjectManager;

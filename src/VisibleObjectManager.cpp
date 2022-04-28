@@ -1,4 +1,7 @@
 #include "VisibleObjectManager.h"
+#include <chrono>
+//float VisibleObjectManager::total_seconds = 0.0f;
+//int VisibleObjectManager::total_count = 0;
 
 VisibleObjectManager::~VisibleObjectManager() {
 	auto it = _objects.begin();
@@ -39,6 +42,7 @@ void VisibleObjectManager::handleInputAll(sf::Event* event) {
 }
 
 void VisibleObjectManager::updateAllDP(float timeElapsed) {
+	//auto start = std::chrono::high_resolution_clock::now();
 	auto itr = _objects.begin();
 
 	while (itr != _objects.end()) {
@@ -80,9 +84,16 @@ void VisibleObjectManager::updateAllDP(float timeElapsed) {
 
 	}
 
+	/*auto stop = std::chrono::high_resolution_clock::now();
+	VisibleObjectManager::total_seconds += std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+	VisibleObjectManager::total_count++;
+
+	std::cout << total_seconds / total_count << std::endl;*/
+
 }
 
 void VisibleObjectManager::updateAll(float timeElapsed) {
+	// auto start = std::chrono::high_resolution_clock::now();
 	auto itr = _objects.begin();
 
 	while (itr != _objects.end()) {
@@ -112,7 +123,11 @@ void VisibleObjectManager::updateAll(float timeElapsed) {
 		originItr++;
 
 	}
+	/*auto stop = std::chrono::high_resolution_clock::now();
+	VisibleObjectManager::total_seconds += std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+	VisibleObjectManager::total_count++;
 
+	std::cout << total_seconds / total_count << std::endl;*/
 }
 
 void VisibleObjectManager::drawAll(sf::RenderWindow* window) {

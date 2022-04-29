@@ -2,7 +2,6 @@
 
 void MenuState::menuItemInit(int index) {
 	_menuTextItems[index].setFont(_menuFont);
-	std::cout << index << std::endl;
 	_menuTextItems[index].setFillColor(index == 0 ? sf::Color::Yellow : sf::Color::White);
 	_menuTextItems[index].setString(_menuDisplayStrings[index]);
 	_menuTextItems[index].setPosition(sf::Vector2<float>(Pong::SCREEN_WIDTH / 2, Pong::SCREEN_HEIGHT / (MAX_MENU_ITEMS + 1) * (index + 1)) );

@@ -41,7 +41,7 @@ void VisibleObjectManager::handleInputAll(sf::Event* event) {
 	}
 }
 
-void VisibleObjectManager::updateAllDP(float timeElapsed) {
+void VisibleObjectManager::updateAll(float timeElapsed) {
 	//auto start = std::chrono::high_resolution_clock::now();
 	auto itr = _objects.begin();
 
@@ -52,38 +52,31 @@ void VisibleObjectManager::updateAllDP(float timeElapsed) {
 
 	//Detect collision
 	auto originItr = _objects.begin();
-	int originCount = 0;
-	std::vector<std::vector<int>> dp(_objects.size(), std::vector<int>(_objects.size()));
 
 	while (originItr != _objects.end()) {
 		sf::Rect<float> originBound = originItr->second->getBoundingRect();
 
-		auto targetItr = _objects.begin();
-		int targetCount = 0;
+		auto targetItr{ originItr };
+
+		targetItr++;
 
 		while (targetItr != _objects.end()) {
-			if (targetItr == originItr) { targetItr++; targetCount++;  continue; }
+			if (targetItr == originItr) { targetItr++; continue; }
 
-			if (dp[originCount][targetCount] == 1) { targetItr++; targetCount++;  continue; }
+			sf::Rect<float> targetBound = targetItr->second->getBoundingRect();
 
-			// sf::Rect<float> targetBound = 
-
-			if (originBound.intersects(targetItr->second->getBoundingRect())) {
+			if (originBound.intersects(targetBound)) {
 				originItr->second->collideWith(targetItr->second);
 				targetItr->second->collideWith(originItr->second);
-				dp[originCount][targetCount] = 1;
-				dp[targetCount][originCount] = 1;
 			}
 
+
 			targetItr++;
-			targetCount++;
 		}
 
 		originItr++;
-		originCount++;
 
 	}
-
 	/*auto stop = std::chrono::high_resolution_clock::now();
 	VisibleObjectManager::total_seconds += std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
 	VisibleObjectManager::total_count++;
@@ -92,8 +85,8 @@ void VisibleObjectManager::updateAllDP(float timeElapsed) {
 
 }
 
-void VisibleObjectManager::updateAll(float timeElapsed) {
-	// auto start = std::chrono::high_resolution_clock::now();
+void VisibleObjectManager::updateAllDP(float timeElapsed) {
+	//auto start = std::chrono::high_resolution_clock::now();
 	auto itr = _objects.begin();
 
 	while (itr != _objects.end()) {
@@ -123,11 +116,11 @@ void VisibleObjectManager::updateAll(float timeElapsed) {
 		originItr++;
 
 	}
-	/*auto stop = std::chrono::high_resolution_clock::now();
-	VisibleObjectManager::total_seconds += std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-	VisibleObjectManager::total_count++;
+	//auto stop = std::chrono::high_resolution_clock::now();
+	//VisibleObjectManager::total_seconds += std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+	//VisibleObjectManager::total_count++;
 
-	std::cout << total_seconds / total_count << std::endl;*/
+	//std::cout << total_seconds / total_count << std::endl;
 }
 
 void VisibleObjectManager::drawAll(sf::RenderWindow* window) {
